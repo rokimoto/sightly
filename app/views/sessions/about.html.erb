@@ -1,0 +1,75 @@
+
+<!-- The contents of this file are: code that pertains to the contents of the About Page-->
+
+<!-- Begin Yielded Page Content -->
+<div class="sector">
+
+   <!-- Container for all text on page -->
+   <div class="container">
+
+      <!-- Header -->
+      <h1>About Trippy</h1>
+
+      <br>
+
+      <!-- The contents are list-item style infobits about the functionality of Trippy -->
+      <div class="maintext">
+
+         <!-- Begin list -->
+         <ul>
+            <!-- LI #1 -->
+            <li>
+               <strong><h3>What does Trippy do?</h3></strong>
+               <p>Trippy is a platform for locals to create personalized maps of area activities. You can scour the city for locations others find interesting, or build your own from scratch. Trippy's database grows with our users. We allow accomplished members of our site extra priveleges such as adding major locations or "important" reviews.</p>
+            </li>
+            <br>
+
+            <!-- LI #2 -->
+            <li>
+               <strong><h3>How can I join?</h3></strong>
+               <p>Easy. Trippy is free and always will be. It's for users and by users, and it shows. Sign up in a minute flat, and you're all set. No extra work required. No email confirmations. You're done already. And we'll never send you pesky emails like a certain social media giant.</p>
+            </li>
+            <br>
+
+            <!-- LI #3 -->
+            <li>
+               <strong><h3>How can I add a universal location?</h3></strong>
+               <p>Ever go to Yelp and  get lost in the compendium of locations? At Trippy, we're focussed on producing quality events and locations for our users. For this reason, we allow users to submit Locations for consideration to the gloabl locations; but only admins can approve them. Rest assured that your personal locations won't disappear on you after you log out.</p>
+            </li>
+            <br>
+
+            <!-- LI #4 -->
+            <li>
+               <strong><h3>Is trippy a mobile-friendly site?</h3></strong>
+               <p>Our users are on the go. They aren't sitting at home moping around, looking for something to do. They're out and about, exploring the world. Trippy HAD to be mobile friendly, and we've spent countless minutes making sure you get the full Trippy experience, no matter what device you use.</p>
+            </li>
+            <br>
+
+            <!-- LI #5 -->
+            <li>
+               <strong><h3>Does trippy have a mobile app?</h3></strong>
+               <p>We're currently building our mobile app for android devices using Ionic Technology. Be on the lookout for an announcement in the coming weeks!</p>
+            </li>
+
+         </ul>
+         <!-- End of List -->
+
+         <br>
+
+         <!-- This code block is a button that links back to the Users Profile Page -->
+         <%= link_to user_path(current_user) do %>
+            <button type="button" class="btn orange col-xs-3 col-xs-offset-2">Back</button>
+         <% end %>
+
+         <!-- This code block is a button for a Mail_To form that sends and email to my email address. -->
+         <%= mail_to "wacarron27@gmail.com" do %>
+            <button type="button" class="btn orange col-xs-3 col-xs-offset-2">Contact Us</button>
+         <% end %>
+
+      </div>
+      <!-- End of List FAQ content -->
+
+      <br>
+   </div>
+</div>
+<!-- End of Yielded Page Content -->

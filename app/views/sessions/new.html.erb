@@ -1,0 +1,36 @@
+
+<!-- Flash messages -->
+<%= render 'layouts/flash' %>
+<!-- end of flash messages -->
+
+<div class="row backer">
+   <div class="col-xs-4 col-xs-offset-4 text-center">
+
+
+   <!-- Login -->
+          <br />
+          <br />
+          <h1>Log in with Email</h1>
+          <%= form_tag('login', method: 'post') do %>
+            <br> <%= email_field_tag :email,nil,:placeholder => "Email", class: 'form-control'%>
+            <br> <%= password_field_tag :password,nil,:placeholder =>  'Password', class: 'form-control'%>
+            <br> <%= submit_tag "Login", class: "orange btn" %>
+          <% end %>
+
+          <br />
+          <br />
+          <br />
+          <br />
+
+   <!-- Facebook Login -->
+            <h1>Log in with Facebook</h1>
+            <%= link_to "/auth/facebook" do %>
+            <br />
+            <div class="btn btn-primary btn-md">
+              Sign up with Facebook
+            </div>
+          <% end %>
+
+    </div>
+
+</div>

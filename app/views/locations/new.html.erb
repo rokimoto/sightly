@@ -1,0 +1,24 @@
+
+<!-- This file contains code relating to the Location New Page -->
+
+<!-- Begin Yielded Content -->
+
+      <!-- Flash messages -->
+      <%= render 'layouts/flash' %>
+      <!-- end of flash messages -->
+   <div class="newLocation col-xs-6 col-xs-offset-3">
+      <h1 class="text-center">New Location</h1>
+         <%= form_for @location, class: 'form-group' do |f| %>
+            <%= f.text_field :name, class: "form-control", placeholder: "Name" %>
+            <br>
+            <%= f.text_field :address, class: "form-control", placeholder: "Street Address" %>
+            <br>
+            <%= f.text_field :yelp_id, class: "form-control", placeholder: "Location Yelp ID" %>
+            <br>
+            <%= f.submit "Submit", class: 'btn orange col-xs-4' %>
+
+            <%= link_to locations_path do %>
+               <button type="button" class="btn orange col-xs-4 col-xs-offset-4">Back!</button>
+            <% end %>
+      <% end %>
+   </div>

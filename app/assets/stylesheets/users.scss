@@ -1,0 +1,176 @@
+// Place all the styles related to the users controller here.
+// Each page is denoted by '.user.action'
+// The action corresponds to the controller action leading to the view
+
+.users.new{
+   font-family: 'Josefin sans', sans-serif;
+   // Contains the content in the splash/sign up page
+   .row{
+      background: url('Trippypic4.jpg')no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Josefin sans', sans-serif;
+      color: white;
+      padding: 25px;
+      // The actual form div in the page
+      .logform{
+         color: #ff6f00;
+         background: rgba(255,255,255,0.3);
+         }
+   }
+
+
+
+}
+
+// Styles the image of the phones on the splash page to be responsive
+@media(max-width: 768px){
+   .phoneimage{
+      width: 100%;
+   }
+}
+
+// Profile Page Code Block
+.users.show{
+   font-family: 'Josefin sans', sans-serif;
+   .bio {
+      margin-left: 20px;
+      margin-right: 10px;
+   }
+   // This biopanel contains all the user attributes and button
+   .biopanel{
+      color: black;
+
+      // div contained profile picture
+      .pimage{
+         height: 200px;
+
+         // Profile picture itself
+         .proimage{
+            height: 100%;
+            border-radius: 30px;
+         }
+      }
+      // Edit Profile button
+      .editor{
+         color:white;
+      }
+   }
+
+   .like_library{
+      margin: 0;
+      padding: 10px 50px 20px;
+   }
+   .review_library{
+      margin-top: 30px;
+      border-top: 1px solid #ddd;
+      padding: 0 50px 30px;
+   }
+   .photo_library{
+      height: 400px;
+      overflow: hidden;
+      width: 100%;
+      border-top: 1px solid #ddd;
+      padding: 30px 0;
+
+   }
+   .carousel-example-generic, .carousel-control {
+      height: 400px;
+   }
+
+   .carousel-control.left, .carousel-control.right{
+      background-image: none;
+   }
+
+   .modal-image {
+      margin: 0 auto;
+      height: 340px;
+   }
+
+   #user-activity {
+      padding: 0;
+      border-left: 1px solid #ddd;
+   }
+
+   .glyphicon-star {
+      color: yellow;
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: grey;
+      margin-left: 8px;
+   }
+   .glyphicon-circle-arrow-left, .glyphicon-circle-arrow-right {
+      color: darkred;
+      font-size: 3em;
+      right: 30%;
+      position: absolute;
+      top: 30%;
+      z-index: 5;
+      display: inline-block;
+   }
+
+   .glyphicon-circle-arrow-left {
+      left: 50%;
+   }
+
+   .item {
+      overflow: hidden;
+   }
+
+   .review-location-name {
+      font-size: 1.2em;
+   }
+
+   .box-top {
+      margin-top: 10px;
+   }
+
+   .review-location-content {
+      font-style: italic;
+   }
+
+   .user-review-container {
+      border-bottom: 1px solid #ddd;
+   }
+
+   .photo-library-header {
+      text-align: center;
+      margin-bottom: 20px;
+   }
+
+   .mush-icon {
+      height: 15px;
+      margin-top: -5px;
+   }
+
+   .glyphicon-remove {
+      color: darkred;
+   }
+
+   .like-p {
+      float: left;
+      width: 30%;
+   }
+
+}
+
+@media (max-width: 992px) {
+   .users.show {
+      .like-p {
+         width: 50%;
+      }
+   }
+}
+
+@media (max-width: 768px) {
+   .users.show {
+      .bio-panel {
+         border-bottom: 1px solid #ddd;
+      }
+      #user-activity {
+         border-left: none;
+      }
+
+   }
+}
+
+
+

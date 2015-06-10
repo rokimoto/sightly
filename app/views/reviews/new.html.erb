@@ -1,0 +1,16 @@
+<!-- Flash messages -->
+<%= render 'layouts/flash' %>
+<!-- end of flash messages -->
+<h1>Add a review</h1>
+<%= form_for [current_user, Review.new] do |f| %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
+  <p>Select a location **** WILL CHANGE THIS LATER! ****:</p>
+    <p><%= f.collection_select(:location_id, Location.all, :id, :name, prompt: true)%></p>
+  <p>Rating</p>
+    <p><%= f.number_field(:rating, options = {in: 1...6}) %></p>
+  <p>Content</p>
+    <p><%= f.text_area :content %></p>
+  <p>Photos</p>
+    <p><%= f.file_field :photo, class: "form-control" %></p>
+  <%= f.submit "Post" %>
+<% end %>

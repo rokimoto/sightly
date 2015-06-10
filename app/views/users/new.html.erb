@@ -1,0 +1,74 @@
+
+<!-- This file contains code for the Splash/New User Page -->
+
+<!-- Begin Yielded Page Content -->
+<div class="row">
+<%= render 'layouts/flash' %>
+
+   <!-- This row contains the Image of the Phones on the left side of the page -->
+  <div class="row col-xs-6 col-sm-6 col-md-6 col-lg-5 col-sm-offset-3 col-md-offset-2 col-lg-offset-0">
+    <%= image_tag "phones.png", class: 'col-xs-12 col-xs-offset-8 col-sm-offset-0 col-lg-offset-2 phoneimage'%>
+  </div>
+
+  <!-- The following code block contains the text-fields and buttons on the right side of the page -->
+  <div class="row">
+
+     <!-- This is the Form for creating a new User -->
+    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 col-xs-offset-3 col-sm-offset-3 col-md-offset-2 col-lg-offset-1">
+
+      <!-- Header -->
+      <h1>Sign Up</h1>
+
+        <!-- Following code block is the ERB form for creating a new User -->
+        <%= form_for @user do |f| %>
+          <br> <%= f.text_field :name, placeholder:'Name', class:'form-control' %>
+          <br> <%= f.text_field :username, placeholder:'Username', class:'form-control' %>
+          <br> <%= f.email_field :email, placeholder:'Email', class:'form-control' %>
+          <br> <%= f.password_field :password, placeholder:'Password', class:'form-control' %>
+          <br> <%= f.password_field :password_confirmation, placeholder:'Password Confirmation', class:'form-control' %><br>
+          <p><%= f.submit "Create Account", class: "orange btn  col-xs-offset-2 col-sm-offset-5 col-md-offset-3 col-lg-offset-0" %></p>
+        <% end %>
+        <!-- End ERB form block -->
+    </div>
+    <!-- End of New User Form -->
+
+
+    <!-- Facebook Login Code Block -->
+    <div class="fbBox">
+
+      <div class="col-xs-6 col-sm-6 col-md-3 col-lg-6 col-xs-offset-2 col-sm-offset-3 col-md-offset-1 col-lg-offset-0">
+
+        <!-- Header -->
+        <br>
+        <br>
+        <br>
+        <br>
+        <h4>Sign up through Facebook</h4>
+        <h5 class='grey'>Connect and see the world</h5>
+
+          <!-- Code block for the OAuth button for Facebook Account Creation -->
+          <%= link_to "/auth/facebook" do %>
+            <div class="btn btn-primary">
+              Sign up with Facebook
+            </div>
+          <% end %>
+          <!-- End of OAuth block -->
+
+          <!-- More small text -->
+            <p>Don't worry, we never post without permission</p>
+      </div>
+    </div>
+    <!-- End of FBBOX code block -->
+
+  </div>
+
+</div>
+<!-- End of body -->
+
+<!-- Footer -->
+<footer class="splashFooter">
+  &copy Team Number One (TNO)
+</footer>
+<!-- End of Footer -->
+
+<!-- End of Yielded Page Content -->

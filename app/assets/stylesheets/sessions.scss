@@ -1,0 +1,56 @@
+// Place all the styles related to the sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+   font-family: 'Josefin sans', sans-serif;
+}
+
+
+.login_form {
+  margin-top: 10%;
+}
+
+// Image of Phones on New User Page
+.phoneImg {
+  background-image: url('phones.png');
+}
+
+.orangetxt {
+  color: #FF8000;
+}
+
+// A custom button class
+.orange {
+  background-color: #FF8000;
+  color: white;
+}
+
+.form-wrapper input[type="submit"] {
+  background-color: #FF8000;
+}
+
+.fbBox {
+  text-align: center;
+}
+
+// Following code styles the content of the About Page
+.sessions.about{
+   font-family: 'Josefin sans', sans-serif;
+
+   // Content all nested inside this div
+   .maintext{
+      margin-bottom: 40px;
+         ul{
+            // Remove bullets
+            list-style-type: none;
+            li{
+               p{
+                  font-size: 1.2em;
+               }
+               padding-bottom: 10px;
+               border-bottom: 1px solid black;
+            }
+      }
+   }
+}
