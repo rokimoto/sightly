@@ -1,69 +1,105 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Trippy</title>
+  <title>Sightly</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.png' %>
-  <link href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lato|Roboto:400,500' rel='stylesheet' type='text/css'>
 </head>
+
 <body class="<%= controller_name %> <%= action_name %>">
 
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed mobile-btn" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to root_path do %>
-        <%= image_tag("logo_white_svg.svg", :class => "logo") %>
-      <% end %>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed mobile-btn" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
         <% if current_user %>
-
-        <li class="dropdown">
-          <div class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span id="navtext">Logged in as: <%= current_user.username || current_user.name %> </span><button type="button" class="btn navbar-btn dropdown-toggle nvbtn"> <span class="caret"></span></button></div>
-           <ul class="dropdown-menu dropmen" role="menu">
-             <!-- Link to Map Page -->
-             <li><%= link_to "Places", locations_path, 'data-no-turbolink' => true %></li>
-             <!-- Link to User Profile -->
-             <li><%= link_to "Profile", user_path(current_user) %></li>
-             <!-- Logs User out, redirects them to Splash Page -->
-             <li><%= link_to "Logout", sessions_path, method: :delete %></li>
-             <!--  -->
-             <li><%= link_to "About", about_path %></li>
-           </ul>
-        </li>
-
+          <%= link_to locations_path, class: "navbar-brand", 'data-no-turbolink' => true do %>
+            <%= image_tag "logo-svg-white.svg", class: "logo" %>
+          <% end %>
         <% else %>
+          <%= link_to welcome_path, class: "navbar-brand" do %>
+            <%= image_tag "logo-svg-white.svg", class: "logo" %>
+          <% end %>
+        <% end %>
+      </div>
 
-         <li><%= link_to users_new_path do %><button type="button" class="tops btn btn-default">Sign Up</button><% end %></li>
-         <li><%= link_to login_path do %><button type="button" class="tops btn btn-default">Login</button><% end %></li>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+          <% if current_user %>
 
-       <% end %>
+          <li class="dropdown">
+
+            <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= current_user.username || current_user.name %> <span class="caret"></span></a>
+
+             <ul class="dropdown-menu dropmen" role="menu">
+               <!-- Link to Map Page -->
+               <li><%= link_to "Places", locations_path, 'data-no-turbolink' => true %></li>
+               <!-- Link to User Profile -->
+               <li><%= link_to "Profile", user_path(current_user) %></li>
+               <!-- Logs User out, redirects them to Splash Page -->
+               <li><%= link_to "Logout", sessions_path, method: :delete %></li>
+               <!--  -->
+               <li><%= link_to "About", about_path %></li>
+             </ul>
+          </li>
+
+          <% else %>
+
+           <li><a id="signUpNav" href="#">Sign Up</a></li>
+
+           <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login<span class="caret"></span></a>
+            <ul class="dropdown-menu login-form">
+              <li>
+
+                <%= form_tag('login', method: 'post') do %>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <%= email_field_tag :email,nil,:placeholder => "Email", class: 'form-control' %>
+                  </div>
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <%= password_field_tag :password,nil,:placeholder =>  'Password', class: 'form-control'%>
+                  </div>
+                  <%= submit_tag "Login", class: "btn btn-success" %>
+                <% end %>
+              </li>
+ 
+              <li role="separator" class="divider"></li>
+ 
+              <li>
+                <%= link_to "/auth/facebook" do %>
+                  <div class="btn btn-primary">
+                    Login with Facebook
+                  </div>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+
+         <% end %>
 
 
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
 
-<!-- YIELDED PAGE CONTENT -->
-<section>
-   <div class="page">
+
+  <div class="container-fluid">
       <%= yield %>
-   </div>
-</section>
-<!-- FOOTER -->
+      </div>
+
 
 </body>
 </html>

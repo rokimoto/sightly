@@ -9,12 +9,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = "Welcome to Trippy @user.name!"
+      flash[:success] = "Welcome to Trippy "+ @user.name + "!"
       session[:user_id] = @user.id
-      redirect_to user_path(@user)
+      redirect_to locations_path
     else
       flash[:danger] = @user.errors.full_messages.to_sentence
-      render 'new'
+      redirect_to welcome_path
     end
   end
 

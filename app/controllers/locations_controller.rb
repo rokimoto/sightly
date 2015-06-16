@@ -10,7 +10,7 @@ class LocationsController < ApplicationController
       if params[:search_type] == "Name"
         @target = Location.where("LOWER(name) LIKE ?","%#{params[:search].downcase}%").first || nil
         if @target
-          @locations = Location.near(@target.address, 10, :order => "distance").limit(10)
+          @locations = Location.near(@target.address, 10, :order => "distance").limit(9)
         else
           flash[:danger] = "No matches found!"
           @locations = nil
@@ -18,14 +18,14 @@ class LocationsController < ApplicationController
         end
       elsif params[:search_type] == "Location"
         if Location.near(params[:search], 10)
-          @locations = Location.near(params[:search], 10, :order => "distance").limit(10)
+          @locations = Location.near(params[:search], 10, :order => "distance").limit(9)
         else
           flash[:danger] = "No matches found!"
           @locations = Location.all
         end
       end
     else
-      @locations = Location.all.limit(20) #Location Limited to 20
+      @locations = Location.all.limit(9) #Location Limited to 20
     end
   end
 
@@ -45,6 +45,9 @@ class LocationsController < ApplicationController
   end
 
   def show
+    url = "https://maps.googleapis.com/maps/api/js?key="
+    key = ENV['GOOGLE_MAPS']
+    @endpoint = url + key
     @location = Location.find(params[:id])
     @client = Yelp.client.business(@location.yelp_id)
   end

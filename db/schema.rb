@@ -16,17 +16,12 @@ ActiveRecord::Schema.define(version: 20150512211646) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-# CATEGORY MODEL
-# -------------
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-
-# COMMENT MODEL
-# -------------
   create_table "comments", force: :cascade do |t|
     t.text     "content"
     t.integer  "review_id"
@@ -35,8 +30,6 @@ ActiveRecord::Schema.define(version: 20150512211646) do
     t.datetime "updated_at", null: false
   end
 
-# LIKE MODEL
-# ------------
   create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "location_id"
@@ -44,8 +37,6 @@ ActiveRecord::Schema.define(version: 20150512211646) do
     t.datetime "updated_at",  null: false
   end
 
-# LOCATION MODEL
-# -------------
   create_table "locations", force: :cascade do |t|
     t.string   "name"
     t.float    "latitude"
@@ -57,8 +48,6 @@ ActiveRecord::Schema.define(version: 20150512211646) do
     t.string   "yelp_id"
   end
 
-# REVIEW MODEL
-# ------------
   create_table "reviews", force: :cascade do |t|
     t.integer  "rating"
     t.string   "photo"
@@ -70,8 +59,6 @@ ActiveRecord::Schema.define(version: 20150512211646) do
     t.string   "user_name"
   end
 
-# USER MODEL
-# ------------
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "password_digest"

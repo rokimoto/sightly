@@ -30,7 +30,7 @@
     <!-- Edit Profile Button -->
     <div class="row text-center">
       <% if current_user.id == @user.id %>
-        <%= link_to "Edit Profile", edit_user_path, class: 'btn btn-info editor' %>
+        <%= link_to "Edit Profile", edit_user_path, class: 'btn btn-success editor' %>
       <% end %>
    </div>
    <!-- End of Profile Button -->
@@ -47,9 +47,9 @@
       <% if @user.likes.any? %>
         
         <% @user.likes.each do |like| %>
-          <p class="like-p"><%= link_to Location.find(like.location_id).name, locations_path(:search => Location.find(like.location_id).name, :search_type => "Name"), 'data-no-turbolink' => true %>
-            <%= link_to locations_path(:search => Location.find(like.location_id).name, :search_type => "Name") do %>
-              <%= image_tag 'mush-icon-yellow.svg', class: 'mush-icon' %>
+          <p class="like-p"><%= link_to Location.find(like.location_id).name, location_path(like.location_id), 'data-no-turbolink' => true %>
+            <%= link_to locations_path(:search => Location.find(like.location_id).name, :search_type => "Name"), 'data-no-turbolink' => true do %>
+              <%= image_tag 'marker-blue.svg', class: 'mush-icon' %>
             <% end %>
             <%= link_to like, method: :delete, data: {confirm: "Are you sure you want to unlike this location?"} do %>
               <span class="glyphicon glyphicon-remove"></span>
@@ -61,78 +61,57 @@
     </div>
 
     <!-- This div is going to be a carousel, lol sorry Rob, of all the photos Users have submitted. If there are none, it should display "Upload a memory' in the middle of the page." -->
-    <div class="photo_library">
+    <div class="photo_library row">
+      <div class="col-sm-12">
+        <h3 class="photo-library-header">Recently Added Pictures</h3>
+        <% if @user.has_photo_reviews? %>
+          <% @user.reviews.each do |review| %>
+            <% if review.has_photo? %>
+              <%= link_to location_path(review.location.id), 'data-no-turbolink' => true do %>
+              <div class="photo-box">
+                <%= image_tag review.photo.url, class: "user-photo img-thumbnail" %>
+                <div class="caption">
+                  <strong><%= Location.find(review.location_id).name %></strong>
+                </div>
+              </div>
+              <% end %> <!-- end link -->
+            <% end %> <!-- end has_photo? -->
 
-    <h3 class="photo-library-header">Recently Added Pictures</h3>
+          <% end %> <!-- end each review -->
+        <% else %>
+          <%= image_tag 'default-review-photo.jpg'%>
 
-      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox">
-          <% if @user.has_photo_reviews? %>
-            <% @user.reviews.each_with_index do |review, index| %>
-
-              <% if review.has_photo? %>
-                <% if index == 0 %>
-                  <div class="item active">
-                <% else %>
-                  <div class="item">
-                <% end %>
-                    <%= image_tag review.photo.url, class: 'modal-image' %>
-                    <div class="carousel-caption">
-                      <%= Location.find(review.location_id).name %>
-                    </div>
-                  </div> <!-- end item -->
-                <% end %> <!-- end has_photo? -->
-
-            <% end %> <!-- end each review -->
-          <% else %>
-            <div class="item active">
-              <%= image_tag 'default-review-photo.jpg', class: 'modal-image' %>
-            </div>
-          <% end %>
-        </div>
-           
-
-        <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-          <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-          <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div> <!-- end #carousel-example-generic -->
-
+        <% end %>
+      </div>
     </div> <!-- end photo library -->
 
 
 
          <!-- This div is a list of all the reviews a user has made. Again, if there are none, the page should display 'Share your opinion' in the div center-->
-         <div class="review_library">
-            <h3>Recent Reviews</h3>
-            <% if @user.reviews.any? %>
-               <% @user.reviews.limit(10).each do |review| %>
-                  <div class="user-review-container">
-                    <p class="box-top">
-                       <strong><span class="review-location-name"><%= link_to Location.find(review.location_id).name, locations_path(:search => Location.find(review.location_id).name, :search_type => "Name"), 'data-no-turbolink' => true  %></span></strong> <%= review.date_added %>
-                    </p>
-                    <p>
-                       <% review.rating.to_i.times do %>
-                         <span class="glyphicon glyphicon-star"></span>
-                       <% end %>
-                    </p>
-                    <p>
-                       <span class="review-location-content"><%= review.content %></span>
-                    </p>
-                  </div>
-               <% end %>
-            <% else %>
-              <p> No reviews yet!</p>
-            <% end %>
+         <div class="review_library row">
+           <div class="col-sm-12">
+              <h3>Recent Reviews</h3>
+              <% if @user.reviews.any? %>
+                 <% @user.reviews.limit(10).each do |review| %>
+                    <div class="user-review-container">
+                      <p class="box-top">
+                         <strong><span class="review-location-name"><%= link_to Location.find(review.location_id).name, location_path(review.location.id), 'data-no-turbolink' => true  %></span></strong> <%= review.date_added %>
+                      </p>
+                      <p class="stars">
+                         <% review.rating.to_i.times do %>
+                           <span class="glyphicon glyphicon-star"></span>
+                         <% end %>
+                      </p>
+                      <p>
+                         <span class="review-location-content"><%= review.content %></span>
+                      </p>
+                    </div>
+                 <% end %>
+              <% else %>
+                <p> No reviews yet!</p>
+              <% end %>
+           </div>
          </div>
-
       </div>
       <!-- End of the User Activity Code Block -->
 

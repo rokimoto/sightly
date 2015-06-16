@@ -12,7 +12,8 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to locations_path
     else
-      render 'new'
+      flash[:danger] = "There was an error logging in!"
+      redirect_to welcome_path
     end
   end
 
@@ -27,6 +28,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to login_path
+    redirect_to welcome_path
   end
 end

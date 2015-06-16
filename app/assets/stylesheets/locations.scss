@@ -4,176 +4,340 @@
 // The .action corresponds to the controller action that leads to the path
 .locations.index{
    // Style code with search bar, radio buttons, and submit
-   .search_bar{
-      margin-top: 5px;
-      padding-top: 10px;
-      margin-bottom: 10px;
-      padding-bottom: 0px;
-      p{
-         margin-left: 25px;
-         font-size: 1.3em;
-         font-family: 'Josefin Sans', sans-serif;
-         span{
-            margin-top: 5px;
-            color: #ff6f00;
-            font-size: 1.5em;
-         }
 
-         // Class for input fields for visual ease
-         .inputting{
-            height: 30px;
-            border: 2px solid #ff6f00;
-            border-radius: 50px;
-            background: white;
-            color: black;
-            padding-top: 10px;
-         }
-         .search_btn{
-            background: #ff6f00;
-            border-radius: 10px;
-            color: white;
-            box-shadow: none;
-            border: none;
-            padding-top: 5px;
-         }
+   h1, h2 {
+      margin-left: 10px;
+      font-weight: 600;
+   }
+
+   form {
+      margin: 20px 20px 20px 5px;
+      font-size: 1.1em;
+   }
+
+   form div {
+      margin-left: 5px;
+   }
+
+   .enter-text {
+      width: 200px;
+   }
+
+   .list-group-item {
+      width: 100%;
+      background-color: #eaeaea;
+      border: 3px solid white;
+
+      a {
+         font-size: 1.2em;
+      }
+
+      .location-name {
+         font-size: 1.2em;
       }
    }
 
-// Modal Styling Code Block
-@media (min-width: 992px) {
-      #locations-modal {
-         width: 800px;
-      }
-}
+   .list-group-item:hover {
+      background-color: lightgrey;
+      color: #476c8c;
+   }
 
-.modal{
-   font-family: 'Josefin-sans', sans-serif;
-   .modal-body{
-      .reviewContent{
-         .indivrev{
-            border-radius: 0;
-         }
-      }
-      .italic {
-         font-style: italic;
-      }
-      .yelpContent {
-         margin-bottom: 10px;
+   .locations-panel {
+      margin-top: 20px;
+
+      h2 {
+         text-align: center;
+         margin-bottom: 18px;
+         margin-top: 60px;
       }
 
-      .reviewContent {
-         margin-top: 10px;
+      .add-location {
+         margin: 0 auto;
+         text-align: center;
+         display: block;
       }
-      .imageGallery{
-         .img-rounded{
-            margin: 5px;
-         }
-         .gallery-image {
+   }
+
+   .gallery-image {
             height: 200px;
-            display: inline-block;
-            margin-left: 10px;
-            margin-top: 10px;
-         }
-      }
-   }
-   #myModalLabel {
-      margin-bottom: 5px;
+              margin: 10px;
    }
 
-}
-
-
-   // Styles the map partial, even though the map is no longer circular
-   .circle_map{
-         height: 550px;
-         border-radius: 5%;
-         margin-left: 10px;
-   }
-
-   // Styles the Grey Panel that contains the list of locations(seeded + user generated)
-   .location_panel{
-      background: #cfcfcf;
-      height: 635px;
-      font-family: 'Josefin sans', sans-serif;
-
-      // Individual list items/locations
-      li{
-         margin-bottom: 5px;
-      }
-   }
-
-
-   .locationBox {
-      height: 70%;
-      /*margin-right: 5%;*/
-      padding-left: 0px;
-      overflow: auto;
-   }
-
-   .gm-style-iw {
+      .gm-style-iw {
       min-width: 100px;
    }
 
    .iw-title {
-      font-family: 'Josefin sans', sans-serif;
-      font-size: 16px;
-      font-weight: 400;
-      padding: 10px;
-      background-color: #48b5e9;
-      color: white;
-      margin: 1px;
+      text-align: center;
+      font-family: 'Roboto', sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      // padding: 10px;
+      // background-color: #48b5e9;
+      color: black;
+      // margin: 1px;
+      padding-top: 3px;
+      padding-bottom: 5px;
+      // border-bottom: 1px solid grey;
       border-radius: 2px 2px 0 0; /* In accordance with the rounding of the default infowindow corners. */
    }
-   // Styles the star icon for rating display
-   .glyphicon-star {
-      color: yellow;
-      -webkit-text-stroke-width: 1px;
-      -webkit-text-stroke-color: grey;
-      margin-left: 8px;
+   .iw-subtitle {
+      color: grey;
+      padding-bottom: 3px;
+      text-align: center;
+
    }
+
+   .no-pics {
+      padding-top: 10px;
+      display: inline-block;
+      position: relative;
+      top: -6px;
+      margin-right: 108px;
+      color: black;
+      text-align: center;
+   }
+
+   .no-pics:hover {
+      color: black;
+   }
+
+   .iw-content {
+      text-align: center;
+   }
+
+   .glyphicon-chevron-right {
+      color: #e67e22;
+      font-size: 2em;
+   }
+
+   a:hover {
+      text-decoration: none;
+   }
+
+   .circle_map{
+         height: 550px;
+         margin-left: 10px;
+   }
+
+   .glyphicon-star {
+      font-size: 1.2em;
+   }
+
+
+// // Modal Styling Code Block
+// @media (min-width: 992px) {
+//       #locations-modal {
+//          width: 800px;
+//       }
+// }
+
+// .modal{
+//    font-family: 'Josefin-sans', sans-serif;
+//    .modal-body{
+//       .reviewContent{
+//          .indivrev{
+//             border-radius: 0;
+//          }
+//       }
+//       .italic {
+//          font-style: italic;
+//       }
+//       .yelpContent {
+//          margin-bottom: 10px;
+//       }
+
+//       .reviewContent {
+//          margin-top: 10px;
+//       }
+//       .imageGallery{
+//          .img-rounded{
+//             margin: 5px;
+//          }
+//          .gallery-image {
+//             height: 200px;
+//             display: inline-block;
+//             margin-left: 10px;
+//             margin-top: 10px;
+//          }
+//       }
+//    }
+//    #myModalLabel {
+//       margin-bottom: 5px;
+//    }
+
+// }
+
+
+   // Styles the map partial, even though the map is no longer circular
+
+
+   // Styles the Grey Panel that contains the list of locations(seeded + user generated)
+   // .location_panel{
+   //    background: #cfcfcf;
+   //    height: 635px;
+   //    min-width: 320px;
+   //    font-family: 'Josefin sans', sans-serif;
+
+   //    // Individual list items/locations
+   //    li{
+   //       margin-bottom: 5px;
+   //    }
+   // }
+
+
+   // .locationBox {
+   //    height: 70%;
+   //    margin-right: 10px;
+   //    padding-left: 0px;
+   //    overflow: auto;
+   //    min-width: 300px;
+   // }
+
+   // .gm-style-iw {
+   //    min-width: 100px;
+   // }
+
+   // .iw-title {
+   //    font-family: 'Josefin sans', sans-serif;
+   //    font-size: 16px;
+   //    font-weight: 400;
+   //    padding: 10px;
+   //    background-color: #48b5e9;
+   //    color: white;
+   //    margin: 1px;
+   //    border-radius: 2px 2px 0 0; /* In accordance with the rounding of the default infowindow corners. */
+   // }
+   // Styles the star icon for rating display
 }
 
 // The following pertains to the code and display of the Location Show page
 // On this page, users add new reviews
-.locations.show{
+.locations.show {
 
-   // All page content is contained inside the revpage div
-   .revpage{
-      margin-top: 80px;
-      margin-bottom: 40px;
-      padding-bottom: 20px;
-      .addrevbtn{
-         margin-bottom: 20px;
-      }
+   .custom-container {
+      padding: 0 50px;
+   }
 
-      // This div contains the basic info of the location + metrics
-      .info{
-         border-radius: 25px;
-      }
+   .small_map{
+      height: 300px;
+   }
 
-      // This div will be populated by any reviews attached to the location
-      .revs{
-         border: 2px solid orange;
-         border-radius: 30px;
-         .indrev{
-            margin-bottom: 10px;
-         }
-         .backbtn{
-            margin-bottom: 20px;
-         }
-      }
+   #map2 {
+      height: 200px;
+      margin-top: 20px;
+   }
 
-      // This div is populated by any images uploaded to the location through reviews
-      .pics{
+   .gallery-row {
+      margin-top: 40px;
+      margin-left: 34px;
+      margin-right: 34px;
+      padding-top: 30px;
+      padding-bottom: 0;
+      border-bottom: 1px solid #D3D3D3;
+      border-top: 1px solid #d3d3d3;
+   }
 
+   .photo-gal-box {
+       width: 200px;
+      height: 200px;
+      display: inline-block;
+      margin: 0 20px;
+      overflow: hidden;
+   }
+
+   .photo-gal {
+      height: 200px;
+      width: 200px;
+
+     // height: 200px;
+     // width: 200px;
+      // img {
+      //    height: 100%;
+      //    width: 100%;
+      // }
+   }
+
+   .review-row-title {
+      margin-left: 34px;
+      margin-right: 34px;
+      margin-top: 30px;
+   }
+
+   .review-row-content {
+      margin-left: 34px;
+      margin-right: 34px;
+      margin-top: 20px;
+      border-bottom: 1px solid lightgrey;
+      padding-bottom: 30px;
+   }
+
+   h4 {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-weight: 500;
+   }
+
+   .review-stars {
+      margin-left: -.6em;
+      font-size: 1.3em;
+   }
+
+   .review-each-content {
+      font-size: 1.1em;
+   }
+
+   .review-date {
+      font-style: italic;
+      margin-top: 6px;
+      margin-bottom: 3px;
+   }
+
+   .add-review-header {
+      margin-left: 34px;
+      margin-bottom: 14px;
+      margin-top: 10px;
+   }
+
+   .text-center {
+      margin: 50px 0;
+   }
+
+   .add-photo {
+      background-color: grey;
+      height: 100%;
+      color: white;
+      font-size: 1.3em;
+      padding: 10px;
+      padding-top: 15px;
+   }
+
+   .no-review {
+      margin-left: 34px;
+      font-size: 1.2em;
+      border-bottom: 1px solid #d3d3d3;
+      padding-bottom: 30px;
+
+      p {
+         margin-top: 15px;
+         font-style: italic;
       }
    }
+
+
 }
 
 .locations.new{
-   font-family: 'Josefin-sans', sans-serif;
    .newLocation{
       margin-top: 150px;
+   }
+
+   h1 {
+      margin-bottom: 30px;
+   }
+
+   .btn-success {
+      margin-left: 10px;
    }
 }
 

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get "welcome" => "welcome#index"
+
   resources :reviews
 
   get "login" => "sessions#new"
@@ -32,12 +34,15 @@ Rails.application.routes.draw do
   resources :locations
 
 
+
+
 # Routes for all API views
   namespace :api do
     get 'locations_api/search_name' => 'locations_api#search_name'
     get 'locations_api/search_location' => 'locations_api#search_location'
     get 'locations_api/reviews/:id' => 'locations_api#reviews', as: :reviews
     get 'locations_api/yelp/:id' => 'locations_api#yelp', as: :yelp
+    get 'locations_api/:id' => 'locations_api#show'
     resources :locations_api
 
   end

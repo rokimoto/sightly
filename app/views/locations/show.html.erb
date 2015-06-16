@@ -1,140 +1,218 @@
-
+<script type="text/javascript" src="<%= @endpoint %>"></script>
 <!-- The code in this file pertains to the content of the Location Show Page -->
 
 <!-- Begin Yielded Content -->
 
-<div class="row revpage">
-
+<div class="row">
+  <div class="col-sm-12">
    <!-- Flash messages -->
-   <%= render 'layouts/flash' %>
+     <%= render 'layouts/flash' %>
    <!-- end of flash messages -->
-
+   </div>
+</div>
    <!-- This code block sets a page content width of 10col and offset 1col -->
-   <div class="col-xs-10 col-xs-offset-1">
+<div class="custom-container">
+  <div class="row">
+     <div class="col-sm-4">
 
-      <!-- This div contains the Location INFO BOX about the specific location: name address phone etc -->
-      <div class="info text-center well">
+        <!-- This div contains the Location INFO BOX about the specific location: name address phone etc -->
 
-         <h1><%= @location.name %></h1>
+           <h1><%= @location.name %></h1>
 
-         <p><strong>Address</strong>
-           <%= @location.address %>
-         </p>
-
-         <% begin %>
-           <% @client.display_phone %>
-         <% rescue %>
-         <% else %>
-           <p><strong>Phone</strong>
-             <%= @client.display_phone %>
+           <p><strong>Address</strong>
+             <%= @location.address %>
            </p>
-         <% end %>
 
-         <!-- If the current user is an administrator, they have the ability to delete locations -->
-         <% if current_user.admin? %>
-         <%= link_to "Delete", @location, method: :delete, data: {confirm: "Are you sure you want to delete this location?"} %>
-         <% end %>
-      </div>
-      <!-- End of Location INFO BOX -->
-      <br>
-
-      <!-- This code block contains code for the reviews section of the page -->
-      <div class="revs text-center">
-
-         <!-- Header -->
-         <h2>Reviews</h2>
-
-         <!-- If the specific location has 1 or more reviews, the div should display:
-         The User name, the review rating, the body of the review, and any pictures they wish to upload -->
-         <% if @location.reviews.any? %>
-           <% @location.reviews.each do |review| %>
-           <div class="indrev">
-             <!-- Indiviual Review Fields -->
-             <h4 class="well"><%= User.find(review.user_id).username || User.find(review.user_id).name %></h4>
-             <p>Rating: <% review.rating.to_i.times do %><span class="glyphicon glyphicon-star"></span><% end %></p>
-             <p class=""><%= review.content %></p>
-             <p><%= image_tag review.photo.url if review.photo? %></p>
-
-             <!-- If the current User is an adminstrator, they have the ability to delete a review -->
-             <% if current_user.admin?  || review.user_id = current_user.id %>
-               <%= link_to "Delete", review, method: :delete, data: {confirm: "Are you sure you want to delete this review?"} %>
-             <% end %>
-               <!-- End admin block -->
-
+           <% begin %>
+             <% @client.display_phone %>
+           <% rescue %>
+           <% else %>
+             <p><strong>Phone</strong>
+               <%= @client.display_phone %>
+             </p>
            <% end %>
-           </div>
-           <!-- End IF REVIEWS code block -->
 
-         <!-- This p tag contains the text that should display if there are no reviews for a location -->
-         <% else %>
-           <p>Share your Opinion!</p>
-         <% end %>
+           <!-- If the current user is an administrator, they have the ability to delete locations -->
+           <% if current_user.admin? %>
+           <%= link_to "Delete", @location, method: :delete, data: {confirm: "Are you sure you want to delete this location?"}, class: "btn btn-success" %>
+           <% end %>
+        <!-- End of Location INFO BOX -->
+    </div>
 
-        <button type="button" class="btn btn-info addrevbtn" data-toggle="modal" data-target="#myModal">
-          Add a Review!
-        </button>
 
+    <div class="col-sm-8">
+      <div class="small-map" id="map2"></div>
+      </div>
+    </div>
+  </div> <!-- end row -->
+
+  <div class="row gallery-row">
+
+    <div class="col-sm-12">
+      <h2 class="gallery-header">User Photos</h2>
+        <div class="text-center">
+        <% if @location.reviews.any? %>
+             <% @location.reviews.each do |review| %>
+             
+              <div class="photo-gal-box">
+              <%= image_tag review.photo.url, class: "photo-gal img-thumbnail" if review.photo? %>
+              </div>
+             
+             <% end %>
+        <% end %>
+        <div class="photo-gal-box">
+        <div class="photo-gal img-thumbnail">
+          <div class=" add-photo">
+          <p>Add a photo by leaving a review below!</p>
+          <%= image_tag "white-camera.svg", class: "cam-icon" %>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row review-row-title">
+    <div class="col-sm-12">
+      <h2>Reviews</h2>
+    </div>
+  </div>
+  
+    <% if @location.reviews.any? %>
+         <% @location.reviews.reverse.each do |review| %>
+         <div class="row review-row-content">
+          <div class="col-sm-3">
+             <h4><%= User.find(review.user_id).username || User.find(review.user_id).name %></h4>
+             <p class="review-date"><%= review.date_added %></p>
+             <p class="review-stars"><% review.rating.to_i.times do %><span class="glyphicon glyphicon-star"></span><% end %></p>
+             
+          </div>
+            <div class="col-sm-9 review-each-content">
+              <p class=""><%= review.content %></p>
+              <% if current_user.admin?  || review.user_id = current_user.id %>
+              <%= link_to "Delete", review, method: :delete, data: {confirm: "Are you sure you want to delete this review?"}, class: "btn btn-success" %>
+             <% end %>
+            </div>
+          </div>
+        <% end %>
+     <% else %>
+        <div class="row no-review">
+        <div class="col-sm-12">
+       <p>No reviews yet! Be the first to add a review below!</p>
+       </div>
+       </div>
+     <% end %>
+    
+     <div class="row add-review-header">
+     <div class="col-sm-12">
+     <h2>Share your Opinion!</h2>
+     </div>
      </div>
 
-      <!-- Modal for ADDING REVIEW-->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content text-center">
-
-            <!-- The Header for the Modal -->
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="myModalLabel">Review for <%=@location.name%></h4>
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1">
+      
+        
+        <%= form_for [current_user, Review.new], :html => { :class => "form-horizontal" } do |f| %>
+          <%= f.hidden_field :user_id, :value => current_user.id %>
+          <%= f.hidden_field :location_id, :value => @location.id %>
+          <div class="form-group">
+            <%= f.label :rating, class: "col-sm-1 control-label"%>
+            <div class="col-sm-11">
+              <p><%= f.number_field(:rating, options = {in: 1...6}) %></p>
             </div>
-
-            <!-- Main Content of Modal -->
-            <div class="modal-body">
-              <%= form_for [current_user, Review.new] do |f| %>
-                <%= f.hidden_field :user_id, :value => current_user.id %>
-                <%= f.hidden_field :location_id, :value => @location.id %>
-
-                <!-- Counter that displays the number of stars one wishes to give a location review -->
-                <div class="rater">
-                   <h4>Rating</h4>
-                   <p><%= f.number_field(:rating, options = {in: 1...6}) %></p>
-                </div>
-
-                  <!-- The actual content and body of the review -->
-                <div class="well">
-                   <h4>Content</h4>
-                   <%= f.text_area :content %>
-                </div>
-
-                <!-- Upload picture file button -->
-                <div class="pics">
-                   <h4>Photos</h4>
-                   <p><%= f.file_field :photo, class: "form-control" %></p>
-               </div>
-
-            </div>
-            <!-- End of modal body -->
-
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <%= f.submit "Save", class: "btn btn-primary" %>
-              <% end %>
-            </div>
-
           </div>
-          <!-- End modal content div -->
-        </div>
-        <!-- End dialogue div -->
-      </div>
-      <!-- End of Entire Modal Code Block -->
 
-      <br>
-      <!-- Link to location path -->
-        <%= link_to locations_path do %>
-         <button type="button" class="col-xs-4 col-xs-offset-4 btn orange backbtn">Go Back</button>
+          <div class="form-group">
+            <%= f.label :content, class: "col-sm-1 control-label"%>
+            <div class="col-sm-11">
+              <%= f.text_area :content, class: "form-control", rows: "10" %>
+            </div>
+          </div>
+
+          <div class="form-group">
+           <%= f.label :photo, class: "col-sm-1 control-label" %>
+           <div class="col-sm-11">
+             <%= f.file_field :photo %>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-11">
+              <%= f.submit "Save", class: "btn btn-primary" %>
+            </div>
+          </div>
         <% end %>
+      </div>
+    </div>
 
-   </div>
+
+
+
+    <div class="row text-center">
+      <!-- Link to location path -->
+        <%= link_to locations_path, 'data-no-turbolink' => true do %>
+         <button type="button" class="btn btn-warning">Go Back</button>
+        <% end %>
+        </div>
+
+
    <!-- End page content -->
-</div>
+
 <!-- End of yielded content -->
+
+</div><!-- end custom container -->
+
+<script type="text/javascript">
+  
+  // initializes google maps into our app
+  function initialize() {
+    var lat;
+    var long;
+
+    $.get('/api/locations_api/' + <%= @location.id %>, function(data) {
+      lat = data.latitude;
+      long = data.longitude;
+
+    }).done(function() {
+      console.log(lat)
+      var location = new google.maps.LatLng(lat, long);
+
+      var marker = new google.maps.Marker({
+        position: location,
+        icon: "/assets/marker.svg",
+        animation: google.maps.Animation.DROP,
+      });
+
+
+      // styling for my map
+      var styles = [{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#e0efef"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"hue":"#1900ff"},{"color":"#c0e8e8"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":700}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#7dcdcd"}]}];
+
+      // sets styling for a map
+      var styledMap = new google.maps.StyledMapType(styles, {name: 'Styled Map'});
+
+      // gives us predefined options for our map
+      var mapOptions = {
+        center: location,
+        zoom: 8
+      };
+
+      //creates the map
+      var map = new google.maps.Map(document.getElementById('map2'), mapOptions);
+
+      //This adds styling into my map
+      map.mapTypes.set('map_style', styledMap);
+
+      map.setMapTypeId('map_style');
+
+      marker.setMap(map);
+
+      })
+
+    }
+
+  // Loads in Google maps on window load
+  google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>

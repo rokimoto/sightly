@@ -7,6 +7,11 @@ module Api
       render json: locations
     end
 
+    def show
+      location = Location.find(params[:id])
+      render json: location
+    end
+
     def search_name
       location = Location.where("LOWER(name) LIKE ?","%#{params[:search].downcase}%") || Location.new(latitude: 0, longitude: 0)
       render json: location

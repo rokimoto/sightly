@@ -1,0 +1,125 @@
+<div class="row flash-bar">
+  <div class="col-sm-12">
+   <!-- Flash messages -->
+     <%= render 'layouts/flash' %>
+   <!-- end of flash messages -->
+   </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="welcome-image" id="welcome-image-1">
+      <h1>For the adventurist...</h1>
+    </div>
+  </div>
+</div>
+
+<div class="text-box row" id="text-box-1">
+  <div class="col-sm-10 col-sm-offset-1">
+    <h1 class="subtext-1-header">Discover the treasures of the world</h1> 
+    <%= image_tag "globe-icon.svg", class: "custom-icon"%>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ullamcorper consectetur ipsum in posuere. Donec finibus facilisis faucibus. Ut congue congue est vitae bibendum. Duis ultricies metus ut maximus faucibus. 
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="welcome-image" id="welcome-image-2"></div>
+  </div>
+</div>
+
+<div class="text-box row" id="text-box-2">
+  <div class="col-sm-10 col-sm-offset-1">
+    <%= image_tag "map-icon.svg", class: "custom-icon"%>
+    <h1>Make your next road trip a memorable one</h1> 
+    <p>Fusce lectus sapien, luctus non cursus id, bibendum id libero. Sed lorem velit, scelerisque tempus tortor non, sagittis bibendum ligula.
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="welcome-image" id="welcome-image-3"></div>
+  </div>
+</div>
+
+<div class="text-box row" id="text-box-3">
+  <div class="col-sm-10 col-sm-offset-1">
+    <p>Sign up with Sightly today.  <strong>It's free!</strong>
+    </p>
+    <a href="#" class="btn btn-success" id="signUpButton">Sign Up</a>
+  </div>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title" id="myModalLabel">Create an account!</h3>
+      </div>
+      <div class="modal-body">
+
+        <%= form_for @user do |f| %>
+          <div class='form-group'>
+          <%= f.label :name %>
+          <%= f.text_field :name, placeholder:'Name', class:'form-control' %>
+          </div>
+          <div class='form-group'>
+          <%= f.label :username %>
+          <%= f.text_field :username, placeholder:'Username', class:'form-control' %>
+          </div>
+          <div class='form-group'>
+          <%= f.label :email %>
+          <%= f.email_field :email, placeholder:'Email', class:'form-control' %>
+          </div>
+          <div class='form-group'>
+          <%= f.label :password %>
+          <%= f.password_field :password, placeholder:'Password', class:'form-control' %>
+          </div>
+          <div class='form-group'>
+          <%= f.label :password_confirmation %>
+          <%= f.password_field :password_confirmation, placeholder:'Password Confirmation', class:'form-control' %>
+          </div>
+          <%= f.submit "Sign me up!", class: "btn btn-success" %>
+        <% end %>
+        
+      </div>
+
+      <div class="modal-footer">
+        <%= link_to "/auth/facebook", class: "pull-left" do %>
+            <div class="btn btn-primary">
+              Sign up with Facebook
+            </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+   var image1 = "<%= asset_path('hamilton-pool-preserve.jpg') %>";
+   var image2 = "<%= asset_path('thors.jpg') %>";
+   var image3 = "<%= asset_path('grand-prismatic.jpg') %>";
+  $('#welcome-image-1').parallax({imageSrc: image1});
+  $('#welcome-image-2').parallax({imageSrc: image2});
+  $('#welcome-image-3').parallax({imageSrc: image3});
+
+
+  $('#signUpButton').click(function() {
+    $('#myModal').modal('show');
+  });
+
+    $('#signUpNav').click(function() {
+    $('#myModal').modal('show');
+  });
+  $('.welcome.index').css("visibility", "visible");
+
+
+
+</script>

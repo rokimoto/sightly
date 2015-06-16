@@ -1,108 +1,5 @@
 $(document).ready(function() {
 
-  // creates the content within the modal
-  function fillModal(name, id, yelp_id) {
-    console.log("Yelp id" + yelp_id)
-    $('#myModalLabel').text(name);
-    $('#like_location_id').val(id);
-    $("#addReviewButton").attr("href", "/locations/" + id);
-
-    // modalContent is the granddaddy of the modal content
-    var modalContent = "";
-    var indivrev = '';
-
-    /*** This will get filled by yelp content ***/
-    var yelpContent = "<div class='yelpContent'>";
-
-    /*** This is overwritten if a review is present ***/
-    var eachReviewContent = "<div class='reviewContent'>";
-
-    /*** This is the div that holds all the images ***/
-    var imageGallery = "<div class='imageGallery'>";
-
-    // pulls data from yelp api
-    $.get('/api/locations_api/yelp/' + yelp_id, function(data) {
-      console.log(data);
-
-      /*** address ***/
-      yelpContent += "<div>Address: ";
-      yelpContent += data.location.display_address || "No info";
-      yelpContent +=  "</div>";
-
-      /*** phone number ***/
-      yelpContent += "<div>Phone: ";
-      yelpContent += data.display_phone || "No info";
-      yelpContent +=  "</div>";
-
-      /*** categories ***/
-      yelpContent+= "<div>Categories: ";
-      for (var i = 0; i < data.categories.length; i++) {
-        yelpContent += data.categories[i][0];
-        if (i != data.categories.length -1 ) {
-          yelpContent += ", ";
-        }
-      }
-      yelpContent += "</div>";
-
-    }); // close yelp get
-
-    $.get('/api/locations_api/reviews/' + id, function(data) {
-      $.each(data, function(index, item) {
-
-        var ratingNum = parseInt(item.rating);
-
-        var indivrev = "<div class='well text-left'>";
-
-        /*** reviewer's name ***/
-        indivrev += "<div class='revname'><strong> " + item.user_name + "</strong><span class='italic'> " + item.created_at.slice(0,10) + "</span></div>";
-
-        /*** review rating as stars ***/
-        indivrev += "<div class='revstars'>";
-        for(var i = 0; i < ratingNum; i++) {
-          indivrev += "<span class='glyphicon glyphicon-star'></span>";
-        }
-        indivrev += "</div>";
-
-        /*** review content ***/
-        indivrev += String("<div class='revbody'>" + item.content + "</div>");
-
-
-        /*** pushes photo to image gallery ***/
-        if(item.photo.url) {
-          imageGallery += String("<img class='img-thumbnail gallery-image' src=" + item.photo.url + ">");
-        }
-
-        indivrev += "</div>";
-        eachReviewContent += indivrev;
-
-      }); // close .each
-
-
-      /*** states there is no reviews if there is no reviews ***/
-      if(indivrev == "<div class='reviewContent'>") {
-        eachReviewContent += "<div>No reviews yet!</div>";
-      }
-
-
-      /*** closes yelp content div ***/
-      yelpContent += "</div>";
-      /*** closes image gallery div ***/
-      imageGallery += "</div>";
-      /*** closes review content div ***/
-      eachReviewContent += "</div>";
-
-
-
-      // appends each content section and displays it in the modal
-      modalContent += yelpContent;
-      modalContent += imageGallery;
-      modalContent += eachReviewContent;
-      $('#myModalBody').html(modalContent);
-
-    }); // close reviews get
-
-  }
-
   // gets the parameters of the search string
   function getQueryVariable(variable){
     var query = window.location.search.substring(1);
@@ -154,15 +51,23 @@ $(document).ready(function() {
 
   // builds the map according to data
   function makeMap(data) {
-    console.log(data);
     var mapOptions = {
       zoom: 8
     };
 
+    var styles = [{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#e0efef"}]},{"featureType":"poi","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"hue":"#1900ff"},{"color":"#c0e8e8"}]},{"featureType":"road","elementType":"geometry","stylers":[{"lightness":100},{"visibility":"simplified"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit.line","elementType":"geometry","stylers":[{"visibility":"on"},{"lightness":700}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#7dcdcd"}]}];
+
+    var styledMap = new google.maps.StyledMapType(styles, {name: 'Styled Map'});
+
     //creates the map
     var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-    var bounds = new google.maps.LatLngBounds();
 
+    map.mapTypes.set('map_style', styledMap);
+
+    map.setMapTypeId('map_style');
+    console.log(data)
+    var bounds = new google.maps.LatLngBounds();
+    var images = [];
     var marker_array = [];
     var id_array = [];
     for (var i = 0; i < data.length; i++) {
@@ -170,17 +75,21 @@ $(document).ready(function() {
         position: new google.maps.LatLng(data[i].latitude, data[i].longitude),
         title: data[i].name,
         id: data[i].id,
+        address: data[i].address,
         yelp_id: data[i].yelp_id,
-        icon: "/assets/mush-icon-red.svg",
+        icon: "/assets/marker.svg",
         animation: google.maps.Animation.DROP
 
       }); // close new marker
+      var thisId = data[i].id
+      console.log(thisId)
+
       id_array[data[i].id] = data[i].yelp_id;
       marker_array.push(mark);
       bounds.extend(mark.position);
     } // end first for loop
-    console.log(id_array);
     // attaches event listeners to each infowindow
+    
     for (var x = 0; x < marker_array.length; x++) {
       var item = marker_array[x];
 
@@ -190,37 +99,51 @@ $(document).ready(function() {
 
       //
       google.maps.event.addListener(item, "click", function (e) {
+        // console.log(this.id + "this.id")
+        var image = "";
         var id = this.id;
-
         var yelp_id = id_array[id];
-        console.log("this.yelp_id" + yelp_id);
+        var self = this;
         var name = this.title;
+        var address = this.address;
         var div = document.createElement('div');
-        div.innerHTML = "<div class='iw-title'>" + this.title + "</div><div class='iw-content'><strong>Click Again</strong> to See the Location</div>";
-        infowindow.setContent(div);
-        div.onclick = function(){
-          console.log("before fill modal call" + yelp_id);
-          fillModal(name, id, yelp_id);
-          
-          $('#showModal').modal('show')
-        };
-        infowindow.open(map, this);
+
+        $.get('/api/locations_api/reviews/' + this.id, function(data) {
+          if (typeof data[0] != 'undefined' && data[0].photo.url != null) {
+
+            image = String("<img class='gallery-image' src='" + data[0].photo.url + "'>");
+            console.log(data[0].photo);
+          }
+          else {
+            image = "";
+          }
+
+          console.log(image);
+        }).done(function() {
+          div.innerHTML = "<a href='/locations/" + id + "' data-no-turbolink><div class='iw-title'>" + name + "</div><div class='iw-subtitle'>" + address + "</div><div class='iw-content'>" + image + "<span class='glyphicon glyphicon-chevron-right'></span></div></a>";
+          infowindow.setContent(div);
+          // div.onclick = function(){
+          //   fillModal(name, id, yelp_id);
+            
+          //   $('#showModal').modal('show')
+          // };
+
+        })
+          infowindow.open(map, self);
+        $('.gm-style-iw').on("mouseenter", function() {
+          $('.glyphicon-chevron-right').css( "color", "#d35400" );
+        });
+        $('.gm-style-iw').on("mouseleave", function() {
+          $('.glyphicon-chevron-right').css( "color", "#e67e22" );
+        })
 
       }); // close add event
 
       item.setMap(map);
     } // close 2nd for loop
+
         map.fitBounds(bounds);
-
   } // close makeMap
-
-  // makes modal pop up for nearby locations
-  $('.location_panel li').on("click", function() {
-    var name = $(this).text();
-    var id = $(this).attr('id');
-    fillModal(name, id);
-    $('#showModal').modal('show')
-  })
 
 
 }); // close document ready

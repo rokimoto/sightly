@@ -8,9 +8,8 @@
    <div class="container">
 
       <!-- Header -->
-      <h1>About Trippy</h1>
+      <h1 class="about-header">About Trippy</h1>
 
-      <br>
 
       <!-- The contents are list-item style infobits about the functionality of Trippy -->
       <div class="maintext">
@@ -58,12 +57,12 @@
 
          <!-- This code block is a button that links back to the Users Profile Page -->
          <%= link_to user_path(current_user) do %>
-            <button type="button" class="btn orange col-xs-3 col-xs-offset-2">Back</button>
+            <button type="button" class="btn btn-warning col-xs-3 col-xs-offset-2">Back</button>
          <% end %>
 
          <!-- This code block is a button for a Mail_To form that sends and email to my email address. -->
-         <%= mail_to "wacarron27@gmail.com" do %>
-            <button type="button" class="btn orange col-xs-3 col-xs-offset-2">Contact Us</button>
+         <%= mail_to "rachel.okimoto@gmail.com" do %>
+            <button type="button" class="btn btn-warning col-xs-3 col-xs-offset-2">Contact Us</button>
          <% end %>
 
       </div>

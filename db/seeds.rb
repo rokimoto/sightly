@@ -1,7 +1,5 @@
 users = User.create([
   {name: "Rachel Okimoto", username: "rokimoto", email: "rachel.okimoto@gmail.com", password: "password1", role: "admin"},
-  {name: "Dustin Baker", username: "dbaker", email: "dustin.t.baker22@gmail.com", password: "password1", role: "admin"},
-  {name: "Will Carron", username: "wcarron", email: "wacarron27@gmail.com", password: "password1", role: "admin"}
 ])
 
 
@@ -133,9 +131,6 @@ locations = Location.create([
 
   # Hershey's Chocolate World
   {name:"Hershey's Chocolate World", address:'251 Park Blvd Hershey, PA 17033', yelp_id:'hersheys-chocolate-world-hershey'},
-
-  # Kaatskill Kaleidoscope
-  {name:'Kaatskill Kaleidoscope', address:'5340 Route 28 Mount Tremper, NY 12457', yelp_id:'kaatskill-kaleidoscope-mount-tremper'},
 
   # The Thing?
   {name:'The Thing?', address:'2631 N Johnson Rd Dragoon, AZ 85609', yelp_id:'the-thing-dragoon'},

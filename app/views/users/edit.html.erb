@@ -3,27 +3,72 @@
 <!-- Begin Yielded Content -->
 
 <div class="row">
-
+  <div class="col-sm-12">
    <!-- Flash messages -->
-   <%= render 'layouts/flash' %>
+     <%= render 'layouts/flash' %>
    <!-- end of flash messages -->
-   <div class="container">
-
-
-
-         <h1>Edit Profile</h1>
-
-         <%= form_for @user do |f| %>
-           <p><%= f.text_field :name%> </p>
-           <p><%= f.file_field :profile_picture %></p>
-           <p><%= f.email_field :email %></p>
-           <p><%= f.text_area :bio, placeholder: "Biography" %></p>
-           <p><%= f.password_field :password, placeholder: "New Password" %></p>
-           <p><%= f.password_field :password_confirmation, placeholder: "Password Confirmation" %></p>
-           <p><%= f.submit "Update Account" %></p>
-         <% end %>
-
-
-
    </div>
 </div>
+
+
+<!-- <div class="row"> -->
+
+  <div class="row">
+  <div class="col-sm-3 col-sm-offset-2">
+  <h1>Edit Profile</h1>
+  </div>
+  </div>
+
+  <%= form_for @user, :html => { :class => "form-horizontal" } do |f| %>
+
+    <div class="form-group">
+      <%= f.label :name, class: "col-sm-3 control-label" %>
+      <div class="col-sm-3">
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :profile_picture, class: "col-sm-3 control-label" %>
+      <div class="col-sm-3">
+        <%= f.file_field :profile_picture, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :email, class: "col-sm-3 control-label" %>
+      <div class="col-sm-3">
+
+        <%= f.email_field :email, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :bio, class: "col-sm-3 control-label" %>
+      <div class="col-sm-3">
+        <%= f.text_area :bio, placeholder: "Biography", class: "form-control", rows: "8" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password, class: "col-sm-3 control-label" %>
+      <div class="col-sm-3">
+        <%= f.password_field :password, placeholder: "password", class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password_confirmation, class: "col-sm-3 control-label" %>
+      <div class="col-sm-3">
+        <%= f.password_field :password_confirmation, placeholder: "password", class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-3">
+        <%= f.submit "Update Account", class: "btn btn-success" %>
+      </div>
+    </div>
+ <% end %>
+
+<!-- </div> -->
+
