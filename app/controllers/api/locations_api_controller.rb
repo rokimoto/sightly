@@ -3,7 +3,7 @@ module Api
     protect_from_forgery with: :null_session
   
     def index
-      locations = Location.all
+      locations = Location.all.limit(35)
       render json: locations
     end
 
