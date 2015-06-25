@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get "users/new" => "users#new"
   post "users" => "users#create"
 
-  root 'users#new'
+  root 'welcome#index'
 
   get 'users/:id' => 'users#show'
 
