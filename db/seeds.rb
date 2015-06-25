@@ -180,9 +180,6 @@ locations = Location.create([
   # Old Faithful
   {name:'Old Faithful Geyser of California', address:'1299 Tubbs Ln Calistoga, CA 94515', yelp_id:'old-faithful-geyser-of-california-calistoga'},
 
-  # Spook Hill
-  {name:'Spook Hill', address:'600 N Wales Dr Lake Wales, FL 33853', yelp_id:'spook-hills-lake-wales'},
-
   # South of the Border
   {name:'South of the Border', address:'3346 Hwy 301 N Dillon, SC 29536', yelp_id:'south-of-the-border-dillon'}
 
